@@ -4,9 +4,21 @@ export const state = () => ({
     matched_values:[],
     reset:false,
     counter:0,
+    cards:8,
+    start_timer:false,
 })
 
 export const mutations = {
+     reset_all_values(state){
+        state.prev_index='';
+        state.curr_index='';
+        state.matched_values=[];
+        state.reset=false;
+        state.counter=0;
+        state.cards=8;
+        state.start_timer=false;
+     },
+
      setIndex(state,value){
         if(state.prev_index == '') 
         {
@@ -18,6 +30,7 @@ export const mutations = {
         }    
         if(state.prev_index === state.curr_index)  {
                 state.matched_values.push(state.curr_index);
+                state.counter++;
                 state.prev_index = '';
                 state.curr_index = '';
         } 
@@ -26,12 +39,17 @@ export const mutations = {
         {
                 state.prev_index = '';
                 state.curr_index = '';
+                state.counter++;
                 state.reset = true;
         }    
 
      },
      resetValue(state){
          state.reset = false;
+     },
+
+     setTimer(state){
+        state.start_timer = true;
      }
 }
 
@@ -47,11 +65,23 @@ export const getters = {
         return state.matched_values;
     },
 
+    getMatchcount(state){
+        return state.matched_values.length;
+    },
+
     getResetValue(state){
         if(state.curr_index == '' && state.prev_index == '' && state.reset == true){
             return true;
         } else {
             return false;
         }
+    },
+
+    getCounter(state){
+        return state.counter;
+    },
+
+    getTimer(state){
+        return state.start_timer;
     }
 }

@@ -46,6 +46,7 @@ export default {
     methods:{
         flipcard(){
                 this.isActive = !this.isActive;
+                this.$store.commit('setTimer');
                 this.$store.commit('setIndex',this.index);
                 // if(this.$store.getters.getFlipValue == false ){
                 //     setTimeout(() => {  this.isActive = false; }, 1000);
